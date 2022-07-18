@@ -13,7 +13,7 @@ namespace SimpleTest
             Logger = logger;
         }
 
-        public ILogger Logger { get; }
+        private ILogger Logger { get; }
 
         private string ListToString(List<string> words)
         {
@@ -26,17 +26,6 @@ namespace SimpleTest
             return sb.ToString().TrimEnd();
         }
 
-        public string BeautifyText(string input)
-        {
-            input = RemoveSpecialCharacters(input);
-            var words = input.Split(' ');
-            var listOfWords = words.ToList();
-            var comparer = new WordComparer();
-            listOfWords.Sort(comparer);
-            return ListToString(listOfWords);
-        }
-
-
         private string RemoveSpecialCharacters(string text)
         {
             var charsToRemove = new string[] { ".", ",", ".", ";", "'" };
@@ -45,6 +34,16 @@ namespace SimpleTest
                 text = text.Replace(c, string.Empty);
             }
             return text;
+        }
+
+        public string BeautifyText(string input)
+        {
+            input = RemoveSpecialCharacters(input);
+            var words = input.Split(' ');
+            var listOfWords = words.ToList();
+            var comparer = new WordComparer();
+            listOfWords.Sort(comparer);
+            return ListToString(listOfWords);
         }
     }
 }
